@@ -1,0 +1,22 @@
+{
+    "appId": "com.esparragos.meshgro",
+    "files": [
+        "dist-react",
+        "src/api",
+        "src/electron",
+        "public"
+    ],
+    "icon": "meshgro.ico",
+    "mac": {
+        "target": "dmg"
+    },
+    "linux": {
+        "target": "AppImage",
+        "category": "Utility"
+    },
+    "win": {
+        "target": [
+            "msi"
+        ]
+    }
+}
