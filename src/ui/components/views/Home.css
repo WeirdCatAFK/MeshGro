@@ -1,0 +1,16 @@
+.view-container {
+  transition: background-color 0.3s, color 0.3s;
+  width: 100%;
+}
+
+/* Light theme */
+.view-container.light {
+  background-color: #D9D9D9;
+  color: #333;
+}
+
+/* Dark theme */
+.view-container.dark {
+  background-color: #2e2e2e;
+  color: #f0f0f0;
+}

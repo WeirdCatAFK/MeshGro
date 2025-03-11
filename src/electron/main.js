@@ -27,8 +27,8 @@ app.on("ready", () => {
     titleBarStyle: "hidden",
     autoHideMenuBar: true,
     titleBarOverlay: {
-      color: "#FBF6EE",
-      symbolColor: "#000",
+      color: "#FFFFFF",
+      symbolColor: "#1F2437",
       height: 20,
     },
     webPreferences: {
@@ -48,7 +48,7 @@ app.on("activate", () => {
     const mainWindow = new BrowserWindow({});
     if (isDev()) {
       console.log("Activating");
-      mainWindow.loadURL("https://www.youtube.com/");
+      mainWindow.loadURL("http://localhost:51234");
     } else {
       mainWindow.loadFile(path.join(app.getAppPath(), "dist-react/index.html"));
     }
