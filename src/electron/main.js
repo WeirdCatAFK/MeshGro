@@ -3,23 +3,25 @@ import path from "path";
 import { isDev } from "./util.js";
 import APIinstance from "../api/api.js";
 
-// We start the backend process (node.js)
+let apiAddress;
+// Start the backend process (node.js)
 const api = new APIinstance({
   host: "",
   port: 50500,
-  logFormat: "dev",
-  isLocalhost: true,
+  logFormat: "common",
+  isLocalhost: false,
 });
 
 try {
   await api.start();
   console.log("Backend process started successfully");
+  apiAddress = await api.getAddress();
 } catch (error) {
   console.error("Failed to start backend process:", error);
   app.quit();
 }
 
-// We initialize the frontend process (chromium)
+// Initialize the frontend process (chromium)
 app.on("ready", () => {
   const mainWindow = new BrowserWindow({
     width: 1200,
@@ -27,19 +29,37 @@ app.on("ready", () => {
     titleBarStyle: "hidden",
     autoHideMenuBar: true,
     titleBarOverlay: {
-      color: "#FFFFFF",
-      symbolColor: "#1F2437",
-      height: 20,
+      color: "#333",
+      symbolColor: "#ffff",
+      height: 33,
     },
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false, // Required to use `ipcRenderer` in the renderer process
+      enableRemoteModule: true, // Required to use `remote` in the renderer process
     },
   });
+
+  // Clear cache
+  mainWindow.webContents.session.clearCache().then(() => {
+    console.log("Cache cleared");
+  });
+  //Ensure always a single instance
+  if (!app.requestSingleInstanceLock()) {
+    app.quit();
+  }
+
   if (isDev()) {
     mainWindow.loadURL("http://localhost:51234");
+    mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadFile(path.join(app.getAppPath(), "dist-react/index.html"));
   }
+
+  // Send the API address to the frontend once the window is ready
+  mainWindow.webContents.on("did-finish-load", () => {
+    mainWindow.webContents.send("api-address", apiAddress);
+  });
 });
 
 // Recreate window on activate (macOS specific)

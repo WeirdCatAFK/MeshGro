@@ -1,0 +1,1 @@
+import{j as e}from"./index-CPgxHVmm.js";function t({theme:a}){return e.jsx(e.Fragment,{children:e.jsx("div",{className:`view-container ${a?"dark":"light"}`,children:e.jsx("p",{children:"Heatmap"})})})}export{t as default};

@@ -8,6 +8,15 @@ html {
 
 .app-container {
   width: 100%;
+  height: calc(100% - 33px);
+  background-color: #333;
+}
+
+.header {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  height: 33px;
 }
 
 .content {
@@ -15,4 +24,3 @@ html {
   height: 100%;
   width: 100%;
 }
-

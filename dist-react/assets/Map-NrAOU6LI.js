@@ -1,0 +1,1 @@
+import{j as r}from"./index-CPgxHVmm.js";function i({theme:e}){return r.jsx(r.Fragment,{children:r.jsx("div",{className:`view-container ${e?"dark":"light"}`,children:r.jsx("p",{children:"Map"})})})}export{i as default};
